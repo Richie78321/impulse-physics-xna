@@ -444,7 +444,7 @@ namespace ImpulseEngine2
         private void DrawSegment(SpriteBatch spriteBatch, LineSegment lineSegment, Texture2D lineTexture, float lineWeight = 1F)
         {
             float lineAngle = (float)Math.Atan2(lineSegment.EndPoints[1].Y - lineSegment.EndPoints[0].Y, lineSegment.EndPoints[1].X - lineSegment.EndPoints[0].X);
-            spriteBatch.Draw(lineTexture, lineSegment.Midpoint, null, Color.White, lineAngle + ((float)Math.PI / 2), new Vector2(lineTexture.Width / 2, lineTexture.Height / 2), new Vector2(lineWeight / lineTexture.Width, lineSegment.Length / lineTexture.Height), SpriteEffects.None, 0);
+            spriteBatch.Draw(lineTexture, lineSegment.Midpoint, null, Color.White, lineAngle + ((float)Math.PI / 2), new Vector2((float)lineTexture.Width / 2, (float)lineTexture.Height / 2), new Vector2(lineWeight / lineTexture.Width, lineSegment.Length / lineTexture.Height), SpriteEffects.None, 0);
         }
 
         public void FillPolygon(GraphicsDevice graphicsDevice, ITextureUV uvPoints, Vector2 translation, Vector2 scale)
