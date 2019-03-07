@@ -52,6 +52,7 @@
     <Compile Include="Materials\DefinedMaterials.cs" />
     <Compile Include="Materials\Material.cs" />
     <Compile Include="MetaObject.cs" />
+    <Compile Include="NoCollisionHandler.cs" />
     <Compile Include="PolygonFillEffect.cs" />
     <Compile Include="ElasticJoint.cs" />
     <Compile Include="PolygonPoint.cs" />
