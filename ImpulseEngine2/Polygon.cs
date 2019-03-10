@@ -402,6 +402,39 @@ namespace ImpulseEngine2
             return true;
         }
 
+        /// <summary>
+        /// Determines if a ray intersects the polygon, and at what position the ray first intersects the polygon.
+        /// </summary>
+        /// <param name="rayLine">The line segment representing the ray.</param>
+        /// <param name="intersectionPoint">The first intersection of the ray and the polygon. Is NAN if no intersection.</param>
+        /// <returns>Returns if the polygon was intersected by the ray.</returns>
+        public bool RayIntersection(LineSegment rayLine, out Vector2 intersectionPoint)
+        {
+            intersectionPoint = new Vector2(float.NaN, float.NaN);
+
+            //Low-level detection
+            if (LineSegment.Distance(CenterPoint, rayLine.EndPoints[0]) <= rayLine.Length + MaximumRadius)
+            {
+                LineSegment[] sideSegments = SideSegments;
+                float minDist = 0;
+                for (int j = 0; j < sideSegments.Length; j++)
+                {
+                    Vector2 potentialIntersectionPoint = new Vector2();
+                    if (sideSegments[j].IntersectsSegment(rayLine, ref potentialIntersectionPoint))
+                    {
+                        float distanceToRayOrigin = LineSegment.Distance(potentialIntersectionPoint, rayLine.EndPoints[0]);
+                        if (float.IsNaN(intersectionPoint.X) || distanceToRayOrigin < minDist)
+                        {
+                            minDist = distanceToRayOrigin;
+                            intersectionPoint = potentialIntersectionPoint;
+                        }
+                    }
+                }
+            }
+
+            return !float.IsNaN(intersectionPoint.X);
+        }
+
         public bool IsLineTangent(Line testLine)
         {
             Line testLineNormal = new Line(testLine.ContainedPoint, -1F / testLine.Slope);
